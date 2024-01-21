@@ -1,0 +1,21 @@
+.input {
+    margin-bottom: 20px;
+}
+
+.input:last-child {
+    margin-bottom: 0;
+}
+
+.ButtonsWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.settingButton {
+    margin-left: 15px;
+}
+
+.settingIcon {
+    width: 30px;
+    height: 30px;
+}
