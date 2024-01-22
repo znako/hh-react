@@ -3,12 +3,30 @@ import { Button, ButtonTheme } from "shared/ui/Button/Button";
 import { Input } from "shared/ui/Input/Input";
 import cls from "./SettingForm.module.css";
 import { ReactComponent as SettingIcon } from "shared/assets/settings.svg";
+import { classNames } from "shared/lib/classNames/classNames";
 
-export const SettingForm = () => {
+interface SettingFormProps {
+    className?: string;
+    onSubmitForm: (login: string, repo: string, blacklist: string) => void;
+    isLoading: boolean;
+    error: string;
+}
+
+export const SettingForm = ({
+    className,
+    onSubmitForm,
+    isLoading,
+    error,
+}: SettingFormProps) => {
     const [settingShow, setSettingShow] = useState<boolean>(true);
     const [login, setLogin] = useState<string>("");
     const [repo, setRepo] = useState<string>("");
     const [blacklist, setBlacklist] = useState<string>("");
+
+    const onSubmitFormHandler = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        onSubmitForm(login, repo, blacklist);
+    };
 
     const onSettingButtonClickHandler = (
         event: React.MouseEvent<HTMLElement>
@@ -18,7 +36,8 @@ export const SettingForm = () => {
     };
 
     return (
-        <form>
+        <form className={classNames(cls.SettingForm, {}, [className])}>
+            {error && <div className={cls.error}>{error}</div>}
             {settingShow && (
                 <>
                     <Input
@@ -46,7 +65,9 @@ export const SettingForm = () => {
                 </>
             )}
             <div className={cls.ButtonsWrapper}>
-                <Button>Получить ревьювера</Button>
+                <Button onClick={onSubmitFormHandler} disabled={isLoading}>
+                    Получить ревьювера
+                </Button>
                 <Button
                     theme={ButtonTheme.CLEAR}
                     className={cls.settingButton}

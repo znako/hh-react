@@ -18,11 +18,16 @@ export const Button = (props: ButtonProps) => {
         className,
         children,
         theme = ButtonTheme.PRIMARY,
+        disabled,
         ...otherProps
     } = props;
     return (
         <button
-            className={classNames(cls.Button, {}, [className, cls[theme]])}
+            className={classNames(cls.Button, { [cls.disabled]: disabled }, [
+                className,
+                cls[theme],
+            ])}
+            disabled={disabled}
             {...otherProps}
         >
             {children}
