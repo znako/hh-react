@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/hh-react/static/css/main.b3c9eb16.css",
+    "main.js": "/hh-react/static/js/main.fcde8490.js",
+    "static/media/settings.svg": "/hh-react/static/media/settings.5c3ba271f3d263dd9e9eb354b1e34435.svg",
+    "index.html": "/hh-react/index.html",
+    "main.b3c9eb16.css.map": "/hh-react/static/css/main.b3c9eb16.css.map",
+    "main.fcde8490.js.map": "/hh-react/static/js/main.fcde8490.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3c9eb16.css",
+    "static/js/main.fcde8490.js"
+  ]
+}
