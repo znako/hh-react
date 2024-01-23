@@ -19,3 +19,7 @@ export enum UsersInfoElementView {
     BIG = "big",
     SMALL = "small",
 }
+
+export interface ErrorType extends Error {
+    response: { status: number };
+}

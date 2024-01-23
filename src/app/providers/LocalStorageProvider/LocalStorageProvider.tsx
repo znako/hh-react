@@ -6,6 +6,7 @@ interface LocalStorageProviderProps {
     children: React.ReactNode;
 }
 
+// Создаем провайдер, чтобы в каждом элементе, который хочет использовать localStorage, был доступ к переменной isLocalStorage, которая либо true либо false.
 export const LocalStorageProvider = ({
     children,
 }: LocalStorageProviderProps) => {

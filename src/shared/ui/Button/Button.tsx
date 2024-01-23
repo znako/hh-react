@@ -13,6 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     theme?: ButtonTheme;
 }
 
+// UI компонент button с возможностью настройки темы
 export const Button = (props: ButtonProps) => {
     const {
         className,

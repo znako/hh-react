@@ -16,6 +16,7 @@ interface SettingFormProps {
     error: string;
 }
 
+// Форма настроек
 export const SettingForm = ({
     className,
     onSubmitForm,
@@ -29,6 +30,7 @@ export const SettingForm = ({
 
     const isLocalStorage = useContext(LocalStorageContext);
 
+    // При первом mounte получаем данные из localStorage и сохраняем в стейт
     useEffect(() => {
         if (isLocalStorage) {
             const settings = getLocalStorageItemSafe(
@@ -47,6 +49,7 @@ export const SettingForm = ({
         onSubmitForm(login, repo, blacklist);
     };
 
+    // Скрывам/показываем настройки
     const onSettingButtonClickHandler = (
         event: React.MouseEvent<HTMLElement>
     ) => {

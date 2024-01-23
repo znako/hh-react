@@ -12,43 +12,9 @@ interface UserInfoElementProps {
     view?: UsersInfoElementView;
 }
 
+// Компонент для отображения данных об одном пользователе, принимает параметр view, который позволяет переиспользовать компонент.
 export const UserInfoElement = (props: UserInfoElementProps) => {
     const { className, data, view = UsersInfoElementView.BIG } = props;
-
-    // const content =
-    //     view === UsersInfoElementView.BIG ? (
-    //         <>
-    //             {data.avatar_url && (
-    //                 <img
-    //                     src={data.avatar_url}
-    //                     alt={data.login}
-    //                     className={cls.image}
-    //                 />
-    //             )}
-    //             <div>
-    //                 {" "}
-    //                 <span className={cls.infoTitle}> Логин: </span>
-    //                 {data.login}
-    //             </div>
-    //             {data.html_url && (
-    //                 <div>
-    //                     <span className={cls.infoTitle}>
-    //                         <a
-    //                             href={data.html_url}
-    //                             target="_blank"
-    //                             rel="noreferrer"
-    //                         >
-    //                             Ссылка на github
-    //                         </a>
-    //                     </span>
-    //                 </div>
-    //             )}
-    //         </>
-    //     ) : (
-    //         <>
-
-    //         </>
-    //     );
 
     return (
         <div
@@ -65,7 +31,6 @@ export const UserInfoElement = (props: UserInfoElementProps) => {
                 />
             )}
             <div>
-                {" "}
                 <span className={cls.infoTitle}> Логин: </span>
                 {data.login}
             </div>

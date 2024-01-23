@@ -14,6 +14,7 @@ interface InputProps extends HTMLInputProps {
     onChange: (value: string) => void;
 }
 
+// UI Компонент Input
 export const Input = (props: InputProps) => {
     const { className, label, value, onChange, name, autoFocus } = props;
 

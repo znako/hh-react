@@ -16,6 +16,7 @@ interface UsersInfoProps {
     isLoading: boolean;
 }
 
+// Компонент для отображения данных из ручки
 export const UsersInfo = (props: UsersInfoProps) => {
     const { className, owner, reviewer, restContributors, isLoading } = props;
 

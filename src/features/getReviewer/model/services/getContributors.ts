@@ -1,13 +1,11 @@
 import { octokit } from "shared/api/api";
-import { GithubUserDataType } from "../types/types";
+import { ErrorType, GithubUserDataType } from "../types/types";
 
-interface ErrorType extends Error {
-    response: { status: number };
-}
-
+// Функция для получения контрибутеров репы
 export const getContributors = async (login: string, repo: string) => {
     const contributors: Array<GithubUserDataType> = [];
     try {
+        // Используем octokit как рекомендуемый инструмент от GitHub
         const iterator = octokit.paginate.iterator(
             octokit.rest.repos.listContributors,
             {
@@ -16,7 +14,7 @@ export const getContributors = async (login: string, repo: string) => {
                 per_page: 100,
             }
         );
-        // iterate through each response
+        // Используем iterator, потому что апи предоставляет данные о 500 контрибутерах, следующие будут отображаться как анонимные
         for await (const response of iterator) {
             const { data: users } = response;
             for (const user of users) {
