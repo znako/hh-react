@@ -13,21 +13,16 @@
 
 .container {
     padding: 15px;
-    /* border: 1px solid rgb(171, 170, 170); */
 }
 
 .personalInfoContainer {
     flex-basis: 400px;
     border-right: 1px solid rgb(171, 170, 170);
-    /* height: 1000px; */
 }
 
 .otherInfoContainer {
     flex-basis: 800px;
     padding-left: 40px;
-    /* border: 1px solid rgb(171, 170, 170); */
-    /* border: 1px solid black; */
-    /* height: 1000px; */
 }
 
 .restContributorsContainer {

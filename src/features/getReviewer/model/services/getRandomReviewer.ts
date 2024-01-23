@@ -1,5 +1,5 @@
 import { getContributors } from "./getContributors";
-import { GithubUserDataType } from "../types/types";
+import { GithubUserDataType, OwnerReviewerRestType } from "../types/types";
 
 export const getRandomReviewer = async (
     login: string,
@@ -16,11 +16,11 @@ export const getRandomReviewer = async (
     } catch (error) {
         return Promise.reject(error);
     }
-    const reviewerAndRest: {
-        owner: GithubUserDataType | null;
-        reviewer: GithubUserDataType | null;
-        rest: Array<GithubUserDataType>;
-    } = { owner: null, reviewer: null, rest: [] };
+    const OwnerReviewerRest: OwnerReviewerRestType = {
+        owner: null,
+        reviewer: null,
+        rest: [],
+    };
     if (contributors.length) {
         const bl = blacklist.split(" ");
         if (!bl.includes(login)) {
@@ -32,17 +32,17 @@ export const getRandomReviewer = async (
                 whitelistContributors.push(contr);
             }
             if (contr.login === login) {
-                reviewerAndRest.owner = contr;
+                OwnerReviewerRest.owner = contr;
             }
         });
-        reviewerAndRest.reviewer = whitelistContributors.length
+        OwnerReviewerRest.reviewer = whitelistContributors.length
             ? whitelistContributors[
                   Math.floor(Math.random() * whitelistContributors.length)
               ]
             : null;
-        reviewerAndRest.rest = whitelistContributors.filter(
-            (contr) => contr.login !== reviewerAndRest.reviewer?.login
+        OwnerReviewerRest.rest = whitelistContributors.filter(
+            (contr) => contr.login !== OwnerReviewerRest.reviewer?.login
         );
     }
-    return reviewerAndRest;
+    return OwnerReviewerRest;
 };

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, ButtonTheme } from "shared/ui/Button/Button";
 import { Input } from "shared/ui/Input/Input";
 import cls from "./SettingForm.module.css";
 import { ReactComponent as SettingIcon } from "shared/assets/settings.svg";
 import { classNames } from "shared/lib/classNames/classNames";
+import { LocalStorageContext } from "app/providers";
+import { getLocalStorageItemSafe } from "shared/lib/localStorage/localStorageSafe";
+import { SETTINGS_LOCALSTORAGE_KEY } from "shared/const/localStorage";
+import { SettingFormType } from "../../model/types/types";
 
 interface SettingFormProps {
     className?: string;
@@ -22,6 +26,21 @@ export const SettingForm = ({
     const [login, setLogin] = useState<string>("");
     const [repo, setRepo] = useState<string>("");
     const [blacklist, setBlacklist] = useState<string>("");
+
+    const isLocalStorage = useContext(LocalStorageContext);
+
+    useEffect(() => {
+        if (isLocalStorage) {
+            const settings = getLocalStorageItemSafe(
+                SETTINGS_LOCALSTORAGE_KEY
+            ) as SettingFormType | null;
+            if (settings) {
+                setLogin(settings.login);
+                setRepo(settings.repo);
+                setBlacklist(settings.blacklist);
+            }
+        }
+    }, [isLocalStorage]);
 
     const onSubmitFormHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
