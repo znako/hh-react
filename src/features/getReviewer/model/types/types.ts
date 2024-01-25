@@ -23,3 +23,15 @@ export enum UsersInfoElementView {
 export interface ErrorType extends Error {
     response: { status: number };
 }
+
+export interface Action<T, P> {
+    readonly type: T;
+    readonly payload?: P;
+}
+
+export interface GetReviewerSchema
+    extends SettingFormType,
+        OwnerReviewerRestType {
+    isLoading: boolean;
+    error: string;
+}

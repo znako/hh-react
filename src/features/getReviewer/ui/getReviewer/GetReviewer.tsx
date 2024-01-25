@@ -1,4 +1,3 @@
-import { LocalStorageContext } from "app/providers";
 import { getRandomReviewer } from "../../model/services/getRandomReviewer";
 import { GithubUserDataType } from "../../model/types/types";
 import { useContext, useState } from "react";
@@ -8,6 +7,7 @@ import { setLocalStorageItemSafe } from "shared/lib/localStorage/localStorageSaf
 import { SettingForm } from "../settingForm/SettingForm";
 import { UsersInfo } from "../usersInfo/UsersInfo";
 import cls from "./GetReviewer.module.css";
+import { LocalStorageContext } from "app/providers/LocalStorageProvider";
 
 interface GetReviewerProps {
     className?: string;
