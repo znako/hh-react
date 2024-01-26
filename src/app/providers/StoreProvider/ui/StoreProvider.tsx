@@ -6,6 +6,7 @@ interface StoreProviderProps {
     children: React.ReactNode;
 }
 
+// Провайдер, чтобы обернуть App, для доступа к стору в компонентах
 export const StoreProvider = ({ children }: StoreProviderProps) => {
     const store = configureStore();
 

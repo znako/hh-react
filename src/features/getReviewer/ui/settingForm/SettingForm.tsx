@@ -36,9 +36,6 @@ export const SettingForm = ({
     const blacklist = useSelector(getGetReviewerBlacklist);
 
     const [settingShow, setSettingShow] = useState<boolean>(true);
-    // const [login, setLogin] = useState<string>("");
-    // const [repo, setRepo] = useState<string>("");
-    // const [blacklist, setBlacklist] = useState<string>("");
 
     const isLocalStorage = useContext(LocalStorageContext);
 
@@ -49,9 +46,13 @@ export const SettingForm = ({
                 SETTINGS_LOCALSTORAGE_KEY
             ) as SettingFormType | null;
             if (settings) {
-                dispatch(updateSettingField({ login: settings.login }));
-                dispatch(updateSettingField({ repo: settings.repo }));
-                dispatch(updateSettingField({ blacklist: settings.blacklist }));
+                dispatch(
+                    updateSettingField({
+                        login: settings.login,
+                        repo: settings.repo,
+                        blacklist: settings.blacklist,
+                    })
+                );
             }
         }
     }, [isLocalStorage, dispatch]);
@@ -69,6 +70,7 @@ export const SettingForm = ({
         setSettingShow(!settingShow);
     };
 
+    // Хендлеры на onChange инпутов, обновляются соответствующие поля в стейте
     const onChangeLogin = (login: string) => {
         dispatch(updateSettingField({ login }));
     };

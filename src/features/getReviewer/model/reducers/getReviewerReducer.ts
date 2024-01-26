@@ -1,5 +1,3 @@
-import { Reducer } from "react";
-import { UnknownAction } from "redux";
 import { GetReviewerActionTypes } from "../actionTypes/actionTypes";
 import {
     Action,
@@ -42,6 +40,7 @@ type Actions =
     | SetErrorActionType
     | SetDataFromApiActionType;
 
+// Редьюсер фичи getReviewer, обновляет поля формы, устанавливает флаг загрузки, ошибку и данные из апи
 export function GetReviewerReducer(
     state: GetReviewerSchema = initialState,
     action: Actions

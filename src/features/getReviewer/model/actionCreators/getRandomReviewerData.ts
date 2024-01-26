@@ -1,13 +1,10 @@
 import { Dispatch } from "redux";
 import { SETTINGS_LOCALSTORAGE_KEY } from "shared/const/localStorage";
 import { setLocalStorageItemSafe } from "shared/lib/localStorage/localStorageSafe";
-import {
-    setDataFromApi,
-    setError,
-    setIsLoading,
-} from "../actionCreators/actionCreators";
-import { getRandomReviewer } from "./getRandomReviewer";
+import { setDataFromApi, setError, setIsLoading } from "./actionCreators";
+import { getRandomReviewer } from "../services/getRandomReviewer";
 
+// Асинхронный экшн креатор, чтобы реализовать логику обращения к апи и сохранения данных в стор и LS
 export const getRandomReviewerData = (
     login: string,
     repo: string,
