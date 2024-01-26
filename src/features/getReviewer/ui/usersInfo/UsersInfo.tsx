@@ -34,7 +34,7 @@ export const UsersInfo = (props: UsersInfoProps) => {
     }
 
     if (!owner) {
-        return <></>;
+        return null;
     }
 
     return (

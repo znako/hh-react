@@ -1,7 +1,12 @@
 import { Reducer } from "react";
 import { UnknownAction } from "redux";
 import { GetReviewerActionTypes } from "../actionTypes/actionTypes";
-import { Action, GetReviewerSchema, SettingFormType } from "../types/types";
+import {
+    Action,
+    GetReviewerSchema,
+    OwnerReviewerRestType,
+    SettingFormType,
+} from "../types/types";
 
 const initialState: GetReviewerSchema = {
     isLoading: false,
@@ -19,14 +24,42 @@ type UpdateSettingFieldActionType = Action<
     Partial<SettingFormType>
 >;
 
-type Actions = UpdateSettingFieldActionType;
+type SetIsLoadingActionType = Action<
+    GetReviewerActionTypes.SET_IS_LOADING,
+    boolean
+>;
+
+type SetErrorActionType = Action<GetReviewerActionTypes.SET_ERROR, string>;
+
+type SetDataFromApiActionType = Action<
+    GetReviewerActionTypes.SET_DATA_FROM_API,
+    OwnerReviewerRestType
+>;
+
+type Actions =
+    | UpdateSettingFieldActionType
+    | SetIsLoadingActionType
+    | SetErrorActionType
+    | SetDataFromApiActionType;
+
 export function GetReviewerReducer(
     state: GetReviewerSchema = initialState,
     action: Actions
-) {
+): GetReviewerSchema {
     switch (action.type) {
         case GetReviewerActionTypes.UPDATE_SETTING_FIELD:
             return { ...state, ...action.payload };
+        case GetReviewerActionTypes.SET_IS_LOADING:
+            return { ...state, isLoading: action.payload || false };
+        case GetReviewerActionTypes.SET_ERROR:
+            return { ...state, error: action.payload || "" };
+        case GetReviewerActionTypes.SET_DATA_FROM_API:
+            return {
+                ...state,
+                owner: action.payload?.owner || null,
+                reviewer: action.payload?.reviewer || null,
+                rest: action.payload?.rest || [],
+            };
         default:
             return state;
     }

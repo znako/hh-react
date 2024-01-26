@@ -1,3 +1,6 @@
 export enum GetReviewerActionTypes {
     UPDATE_SETTING_FIELD = "UPDATE_SETTING_FIELD",
+    SET_IS_LOADING = "SET_IS_LOADING",
+    SET_ERROR = "SET_ERROR",
+    SET_DATA_FROM_API = "SET_DATA_FROM_API",
 }

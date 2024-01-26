@@ -1,15 +1,21 @@
 import { GetReviewerReducer } from "features/getReviewer";
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { thunk } from "redux-thunk";
+import {
+    AnyAction,
+    applyMiddleware,
+    combineReducers,
+    createStore,
+} from "redux";
+import { thunk, ThunkMiddleware } from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
+import { StateSchema } from "./stateSchema";
 
 export default function configureStore() {
     const rootReducer = combineReducers({
         getReviewer: GetReviewerReducer,
     });
 
-    const middlewares = [thunk];
-    const middlewareEnhancer = applyMiddleware(...middlewares);
+    const middlewares: ThunkMiddleware<StateSchema, AnyAction> = thunk;
+    const middlewareEnhancer = applyMiddleware(middlewares);
 
     const store = createStore(
         rootReducer,
@@ -19,3 +25,5 @@ export default function configureStore() {
 
     return store;
 }
+
+export type AppDispatch = ReturnType<typeof configureStore>["dispatch"];

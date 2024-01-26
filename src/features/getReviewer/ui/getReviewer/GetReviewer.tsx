@@ -8,19 +8,35 @@ import { SettingForm } from "../settingForm/SettingForm";
 import { UsersInfo } from "../usersInfo/UsersInfo";
 import cls from "./GetReviewer.module.css";
 import { LocalStorageContext } from "app/providers/LocalStorageProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { getRandomReviewerData } from "../../model/services/getRandomReviewerData";
+import { useAppDispatch } from "app/providers/StoreProvider";
+import {
+    getGetReviewerError,
+    getGetReviewerIsLoading,
+    getGetReviewerOwner,
+    getGetReviewerRest,
+    getGetReviewerReviewer,
+} from "../../model/selectors/getGetReviewerData";
 
 interface GetReviewerProps {
     className?: string;
 }
 
 export const GetReviewer = ({ className }: GetReviewerProps) => {
-    const [error, setError] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false);
-    const [owner, setOwner] = useState<null | GithubUserDataType>(null);
-    const [reviewer, setReviewer] = useState<null | GithubUserDataType>(null);
-    const [restContributors, setRestContributors] = useState<
-        Array<GithubUserDataType>
-    >([]);
+    const dispatch = useAppDispatch();
+    const isLoading = useSelector(getGetReviewerIsLoading);
+    const error = useSelector(getGetReviewerError);
+    const owner = useSelector(getGetReviewerOwner);
+    const reviewer = useSelector(getGetReviewerReviewer);
+    const restContributors = useSelector(getGetReviewerRest);
+    // const [error, setError] = useState<string>("");
+    // const [loading, setLoading] = useState<boolean>(false);
+    // const [owner, setOwner] = useState<null | GithubUserDataType>(null);
+    // const [reviewer, setReviewer] = useState<null | GithubUserDataType>(null);
+    // const [restContributors, setRestContributors] = useState<
+    //     Array<GithubUserDataType>
+    // >([]);
 
     const isLocalStorage = useContext(LocalStorageContext);
 
@@ -30,35 +46,36 @@ export const GetReviewer = ({ className }: GetReviewerProps) => {
         repo: string,
         blacklist: string
     ) => {
-        setLoading(true);
-        setError("");
+        dispatch(getRandomReviewerData(login, repo, blacklist, isLocalStorage));
+        // setLoading(true);
+        // setError("");
 
-        try {
-            // Получаем рандомного ревьювера
-            const { owner, reviewer, rest } = await getRandomReviewer(
-                login,
-                repo,
-                blacklist
-            );
-            // Сохраняем данные в стейт
-            owner
-                ? setOwner(owner)
-                : setOwner({ login, contributions: 0, type: "User" });
-            setReviewer(reviewer);
-            setRestContributors(rest);
+        // try {
+        //     // Получаем рандомного ревьювера
+        //     const { owner, reviewer, rest } = await getRandomReviewer(
+        //         login,
+        //         repo,
+        //         blacklist
+        //     );
+        //     // Сохраняем данные в стейт
+        //     owner
+        //         ? setOwner(owner)
+        //         : setOwner({ login, contributions: 0, type: "User" });
+        //     setReviewer(reviewer);
+        //     setRestContributors(rest);
 
-            // Сохраняем данные в LocalStorage
-            if (isLocalStorage) {
-                setLocalStorageItemSafe(SETTINGS_LOCALSTORAGE_KEY, {
-                    login,
-                    repo,
-                    blacklist,
-                });
-            }
-        } catch (error) {
-            setError(error as string);
-        }
-        setLoading(false);
+        //     // Сохраняем данные в LocalStorage
+        //     if (isLocalStorage) {
+        //         setLocalStorageItemSafe(SETTINGS_LOCALSTORAGE_KEY, {
+        //             login,
+        //             repo,
+        //             blacklist,
+        //         });
+        //     }
+        // } catch (error) {
+        //     setError(error as string);
+        // }
+        // setLoading(false);
     };
 
     return (
@@ -66,7 +83,7 @@ export const GetReviewer = ({ className }: GetReviewerProps) => {
             <h2 className={cls.title}>Поиск ревьювера</h2>
             <SettingForm
                 onSubmitForm={onSubmitForm}
-                isLoading={loading}
+                isLoading={isLoading}
                 error={error}
                 className={cls.settingForm}
             />
@@ -75,7 +92,7 @@ export const GetReviewer = ({ className }: GetReviewerProps) => {
                 owner={owner}
                 reviewer={reviewer}
                 restContributors={restContributors}
-                isLoading={loading}
+                isLoading={isLoading}
             />
         </div>
     );
