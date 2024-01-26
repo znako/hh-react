@@ -1,4 +1,5 @@
-import { LocalStorageProvider } from "app/providers";
+import { LocalStorageProvider } from "app/providers/LocalStorageProvider";
+import { StoreProvider } from "app/providers/StoreProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app/App";
@@ -10,8 +11,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <LocalStorageProvider>
-            <App />
-        </LocalStorageProvider>
+        <StoreProvider>
+            <LocalStorageProvider>
+                <App />
+            </LocalStorageProvider>
+        </StoreProvider>
     </React.StrictMode>
 );

@@ -4,10 +4,17 @@ import { Input } from "shared/ui/Input/Input";
 import cls from "./SettingForm.module.css";
 import { ReactComponent as SettingIcon } from "shared/assets/settings.svg";
 import { classNames } from "shared/lib/classNames/classNames";
-import { LocalStorageContext } from "app/providers";
 import { getLocalStorageItemSafe } from "shared/lib/localStorage/localStorageSafe";
 import { SETTINGS_LOCALSTORAGE_KEY } from "shared/const/localStorage";
 import { SettingFormType } from "../../model/types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSettingField } from "../../model/actionCreators/actionCreators";
+import { LocalStorageContext } from "app/providers/LocalStorageProvider";
+import {
+    getGetReviewerBlacklist,
+    getGetReviewerLogin,
+    getGetReviewerRepo,
+} from "../../model/selectors/getGetReviewerData";
 
 interface SettingFormProps {
     className?: string;
@@ -23,10 +30,12 @@ export const SettingForm = ({
     isLoading,
     error,
 }: SettingFormProps) => {
+    const dispatch = useDispatch();
+    const login = useSelector(getGetReviewerLogin);
+    const repo = useSelector(getGetReviewerRepo);
+    const blacklist = useSelector(getGetReviewerBlacklist);
+
     const [settingShow, setSettingShow] = useState<boolean>(true);
-    const [login, setLogin] = useState<string>("");
-    const [repo, setRepo] = useState<string>("");
-    const [blacklist, setBlacklist] = useState<string>("");
 
     const isLocalStorage = useContext(LocalStorageContext);
 
@@ -37,12 +46,16 @@ export const SettingForm = ({
                 SETTINGS_LOCALSTORAGE_KEY
             ) as SettingFormType | null;
             if (settings) {
-                setLogin(settings.login);
-                setRepo(settings.repo);
-                setBlacklist(settings.blacklist);
+                dispatch(
+                    updateSettingField({
+                        login: settings.login,
+                        repo: settings.repo,
+                        blacklist: settings.blacklist,
+                    })
+                );
             }
         }
-    }, [isLocalStorage]);
+    }, [isLocalStorage, dispatch]);
 
     const onSubmitFormHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
@@ -57,6 +70,19 @@ export const SettingForm = ({
         setSettingShow(!settingShow);
     };
 
+    // Хендлеры на onChange инпутов, обновляются соответствующие поля в стейте
+    const onChangeLogin = (login: string) => {
+        dispatch(updateSettingField({ login }));
+    };
+
+    const onChangeRepo = (repo: string) => {
+        dispatch(updateSettingField({ repo }));
+    };
+
+    const onChangeBlacklist = (blacklist: string) => {
+        dispatch(updateSettingField({ blacklist }));
+    };
+
     return (
         <form className={classNames(cls.SettingForm, {}, [className])}>
             {error && <div className={cls.error}>{error}</div>}
@@ -65,7 +91,7 @@ export const SettingForm = ({
                     <Input
                         label="Ваш логин"
                         value={login}
-                        onChange={setLogin}
+                        onChange={onChangeLogin}
                         name="login"
                         className={cls.input}
                         autoFocus
@@ -73,14 +99,14 @@ export const SettingForm = ({
                     <Input
                         label="Репозиторий"
                         value={repo}
-                        onChange={setRepo}
+                        onChange={onChangeRepo}
                         name="repo"
                         className={cls.input}
                     />
                     <Input
                         label="Блэк-лист (логины через пробел)"
                         value={blacklist}
-                        onChange={setBlacklist}
+                        onChange={onChangeBlacklist}
                         name="blacklist"
                         className={cls.input}
                     />
