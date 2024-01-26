@@ -1,0 +1,40 @@
+.UsersInfo {
+    display: flex;
+    border-top: 1px solid rgb(171, 170, 170);
+}
+
+.UsersInfo.loading {
+    border: none;
+}
+
+.loader {
+    margin: 0 auto;
+}
+
+.container {
+    padding: 15px;
+}
+
+.personalInfoContainer {
+    flex-basis: 400px;
+    border-right: 1px solid rgb(171, 170, 170);
+}
+
+.otherInfoContainer {
+    flex-basis: 800px;
+    padding-left: 40px;
+}
+
+.restContributorsContainer {
+    margin-top: 30px;
+}
+
+.userInfoElement {
+    margin-top: 15px;
+}
+
+.message {
+    font-size: 18px;
+    color: rgb(118, 118, 118);
+    margin-top: 20px;
+}

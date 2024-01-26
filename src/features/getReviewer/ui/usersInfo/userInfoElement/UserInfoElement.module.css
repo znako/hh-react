@@ -1,0 +1,25 @@
+.UserInfoElement {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.UserInfoElement.small {
+    flex-direction: row;
+    align-items: center;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+}
+
+.image.small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.infoTitle {
+    font-weight: bold;
+}
